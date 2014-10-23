@@ -3,6 +3,10 @@ using System.Collections;
 
 public class playerScript : MonoBehaviour {
 
+	//Player variables
+	public int health = 150;
+	public int playerNumber;
+	public int armor = 0;
 
 
 	bool placed = false;
@@ -33,13 +37,19 @@ public class playerScript : MonoBehaviour {
 
 			if(placed == false)
 			{
+				if (c.GetComponent<spaceDamageRand>().myEnemy == spaceDamageRand.enemy.bench)
+				{
+					armor += c.GetComponent<spaceDamageRand>().GetArmor();
+				}
+				else{
+					health -= (c.GetComponent<spaceDamageRand>().GetDamage() - armor);
+				}
+
 				this.transform.position = c.transform.position;
 				placed = true;
 			}
 
 			//do other square stuff
-
-
 
 		}
 	}
