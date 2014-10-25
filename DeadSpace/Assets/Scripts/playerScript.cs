@@ -8,53 +8,37 @@ public class playerScript : MonoBehaviour {
 	public int playerNumber;
 	public int armor = 0;
 
-
-	bool placed = false;
-	bool want = false;
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-		if (Input.GetKeyDown(KeyCode.Mouse0)){
-			want = true;
-			this.transform.position = new Vector3 (transform.position.x, transform.position.y, -5);
-		}
-		if (Input.GetKeyUp(KeyCode.Mouse0)){
-			want = false;
-			this.transform.position = new Vector3 (transform.position.x, transform.position.y, 0);
-		}
-
-	}
+	public bool placed = false;
 
 	void OnTriggerEnter(Collider c)
 	{
 		if (c.tag == "Square"){
 
-			if(placed == false)
+			if(placed == true)
 			{
 				if (c.GetComponent<spaceDamageRand>().myEnemy == spaceDamageRand.enemy.bench)
 				{
 					armor += c.GetComponent<spaceDamageRand>().GetArmor();
 				}
-				else{
-					health -= (c.GetComponent<spaceDamageRand>().GetDamage() - armor);
+				else
+				{
+					//if the damage is negative, deal it
+					if ((c.GetComponent<spaceDamageRand>().GetDamage() - armor) > 0)
+					{
+						//deal negative damage
+						health -= (c.GetComponent<spaceDamageRand>().GetDamage() - armor);
+					}
+					//if its supposed to add health, do so.
+					else if (c.GetComponent<spaceDamageRand>().GetDamage() == -35)
+					{
+						//deal "health" damage
+						health -= (c.GetComponent<spaceDamageRand>().GetDamage() - armor);
+					}
 				}
-
 				this.transform.position = c.transform.position;
-				placed = true;
 			}
 
-			//do other square stuff
-
 		}
-	}
-	void OnTriggerExit(Collider c)
-	{
-		placed = false;
+
 	}
 }

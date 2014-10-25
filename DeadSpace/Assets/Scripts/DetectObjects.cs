@@ -4,53 +4,78 @@ using System.Collections;
 public class DetectObjects : MonoBehaviour {
 
 	Ray myRay;
-
-	Vector3 direction;
+	
 	RaycastHit hit;
 
-	Vector3 pos;
+	public bool held = false;
 
-	bool held = true;
+	GameObject heldObject;
 
 	// Update is called once per frame
-	void Update () 
+	void LateUpdate () 
 	{
-		pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-		direction = transform.forward;
 		myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-		if(Input.GetKeyDown(KeyCode.Mouse0) && !held)
-		{
-			held = true;
-		}
-		else if(Input.GetKeyDown(KeyCode.Mouse0) && held)
-		{
-			held = false;
-		}
 
 		if (Physics.Raycast (myRay, out hit, 200.0f))
 		{
-			/*
-			if(Input.GetKeyDown(KeyCode.Mouse0) && hit.transform.tag == "Player" && !held)
-			{
-				hit.transform.position = myRay.origin + myRay.direction * 10;
 
-			}
-			else if(Input.GetKeyDown(KeyCode.Mouse0)  && hit.transform.tag == "Player" && held)
+			if (hit.transform.tag == "Player")
 			{
+				if(Input.GetKeyDown(KeyCode.Mouse0) && !held)
+				{
+					held = true;
+					heldObject = hit.transform.gameObject;
+				}
+				else if(Input.GetKeyUp(KeyCode.Mouse0) && held)
+				{
+					held = false;
+				}
 
+
+				//Debug.DrawRay (Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.up * -100, Color.red);
+				//print(hit.transform.name);
+
+				/*
+				if(held)
+				{
+					hit.transform.position = myRay.origin + myRay.direction * 5;
+					Vector3 temp = hit.transform.position;
+					temp.y = 5;
+					hit.transform.position = temp;
+					hit.transform.GetComponent<playerScript>().placed = false;
+				}
+				else if (!held)
+		        {
+					Vector3 temp = hit.transform.position;
+					temp.y = 0;
+					hit.transform.position = temp;
+					hit.transform.GetComponent<playerScript>().placed = true;
+				}
+				*/
 			}
-			*/
+		}
 
-			if(hit.transform.tag == "Player" && !held)
+		if(held)
+		{
+			heldObject.transform.position = myRay.origin + myRay.direction * 5;
+			Vector3 temp = heldObject.transform.position;
+			temp.y = 5;
+			heldObject.transform.position = temp;
+			heldObject.transform.GetComponent<playerScript>().placed = false;
+		}
+		else if (!held)
+		{
+			if (heldObject != null)
 			{
-				hit.transform.position = myRay.origin + myRay.direction * 10;
-				
+				Vector3 temp = heldObject.transform.position;
+				temp.y = 0;
+				heldObject.transform.position = temp;
+				heldObject.transform.GetComponent<playerScript>().placed = true;
+				heldObject = null;
 			}
-		}	
+		}
 	}
-	
 }
 
 
