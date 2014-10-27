@@ -8,6 +8,8 @@ public class playerScript : MonoBehaviour {
 	public int playerNumber;
 	public int armor = 0;
 
+	//enum jobs {
+
 	public bool placed = false;
 
 	void OnTriggerEnter(Collider c)
@@ -36,6 +38,12 @@ public class playerScript : MonoBehaviour {
 					}
 				}
 				this.transform.position = c.transform.position;
+			}
+			if (health <= 0)
+			{
+				health = 0;
+				print ("Player " + playerNumber + " has been murdered by zombies.");
+				Destroy(this.gameObject);
 			}
 
 		}

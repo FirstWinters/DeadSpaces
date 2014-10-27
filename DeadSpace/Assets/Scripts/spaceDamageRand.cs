@@ -5,21 +5,26 @@ public class spaceDamageRand : MonoBehaviour {
 
 	int rand;
 
-	public enum enemy {pack, slasher, stalker, regenerator, twitcher, bench, health};
+	public enum enemy {none, pack, slasher, stalker, regenerator, twitcher, bench, health};
 	public enemy myEnemy;
 
 	Camera myCamera;
+	bool on = false;
 
 
 	// Use this for initialization
 	void Start () {
-		rand = Random.Range (1, 100);
-		print (rand);
-
 		myCamera = Camera.main;
 		}
 
-
+	void OnTriggerEnter()
+	{
+		if(!on)
+		{
+			rand = Random.Range (1, 100);
+			on = true;
+		}
+	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {

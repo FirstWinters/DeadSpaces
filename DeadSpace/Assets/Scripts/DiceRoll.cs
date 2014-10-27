@@ -25,4 +25,17 @@ public class DiceRoll : MonoBehaviour {
 			rigidbody.AddTorque(0,0,0);
 		}
 	}
+
+	void OnGUI(){
+		if(GUI.Button(new Rect(200,10,100,50), "Roll")){
+			gameObject.rigidbody.useGravity = true;
+		}
+		if(GUI.Button(new Rect(200,50,100,50), "Re-Roll")){
+			gameObject.transform.localPosition = new Vector3(2.806149f,-1.866022f,6.140697f);
+			trigged = false;
+			gameObject.rigidbody.useGravity=false;
+			Start();
+			FixedUpdate();
+		}
+	}
 }
