@@ -7,14 +7,14 @@ public class spaceDamageRand : MonoBehaviour {
 
 	public enum enemy {none, pack, slasher, stalker, regenerator, twitcher, bench, health};
 	public enemy myEnemy;
-
-	Camera myCamera;
 	bool on = false;
+
+	public playerScript myPlayerScripty;
 
 
 	// Use this for initialization
 	void Start () {
-		myCamera = Camera.main;
+
 		}
 
 	void OnTriggerEnter()
@@ -85,27 +85,51 @@ public class spaceDamageRand : MonoBehaviour {
 	public int GetDamage()
 	{
 		if (rand >= 1 && rand <= 5) {
+
+			myEnemy = enemy.twitcher;
 			//damage
-			return 75;
+			if (myPlayerScripty.myCharacter == playerScript.charClass2.eng)
+			{
+				return 50;
+			}
+			else {
+				return 75;
+			}
 			
 		}
 		if (rand >= 6 && rand <= 20) {
 			//player space Pack
 			myEnemy = enemy.regenerator;
-			//damage
-			return 25;
+			if (myPlayerScripty.myCharacter == playerScript.charClass2.sol)
+			{
+				return 15;
+			}
+			else{
+				return 25;
+			}
 		}
 		if (rand >= 21 && rand <= 35) {
 			//player space Pack
 			myEnemy = enemy.stalker;
 			//damage
-			return 20;
+			if (myPlayerScripty.myCharacter == playerScript.charClass2.sci)
+			{
+				return 15;
+			}
+			else{
+				return 20;
+			}
 		}
 		if (rand >= 36 && rand <= 55) {
 			//player space Pack
 			myEnemy = enemy.slasher;
-			//damage
-			return 15;
+			if (myPlayerScripty.myCharacter == playerScript.charClass2.civ)
+			{
+				return 10;
+			}
+			else{
+				return 15;
+			}
 		}
 		if (rand >= 56 && rand <= 80) {
 			//player space Pack

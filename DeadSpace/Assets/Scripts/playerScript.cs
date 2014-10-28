@@ -7,6 +7,8 @@ public class playerScript : MonoBehaviour {
 	public int health = 150;
 	public int playerNumber;
 	public int armor = 0;
+	public enum charClass2 {civ, eng, sci, sol}
+	public charClass2 myCharacter;
 
 	//enum jobs {
 
@@ -15,6 +17,8 @@ public class playerScript : MonoBehaviour {
 	void OnTriggerEnter(Collider c)
 	{
 		if (c.tag == "Square"){
+
+			c.GetComponent<spaceDamageRand>().myPlayerScripty = this.GetComponent<playerScript>();
 
 			if(placed == true)
 			{
