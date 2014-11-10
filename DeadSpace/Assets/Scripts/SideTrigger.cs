@@ -5,7 +5,7 @@ public class SideTrigger : MonoBehaviour {
 
 	Camera myCamera;
 	public int DieValue;
-
+	
 	// Use this for initialization
 	void Start () {
 		myCamera = Camera.main;

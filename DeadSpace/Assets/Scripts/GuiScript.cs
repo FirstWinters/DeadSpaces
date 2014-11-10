@@ -7,6 +7,7 @@ public class GuiScript: MonoBehaviour {
 	public GUIStyle style;
 
 	public int currentPlayer = 0;
+	public int whoseTurn = 1;
 
 	public GameObject[] myPlayers;
 	public playerScript[] myPlayersScripts;
@@ -22,7 +23,7 @@ public class GuiScript: MonoBehaviour {
 	charClass p4 = new charClass();
 	
 	bool showStart = true;
-	bool showGame = false;
+	public bool showGame = false;
 
 	// Use this for initialization
 	void Start () {
@@ -223,7 +224,8 @@ public class GuiScript: MonoBehaviour {
 		}
 		if (showGame)
 		{
-		GUI.Label(new Rect(10, 10, 100, 50), "Dice Roll: " + currentValue, style);
+		GUI.Label(new Rect(400, 500, 100, 50), "Dice Roll: " + currentValue, style);
+		GUI.Label(new Rect(10, 10, 100, 50), "It's Player " + whoseTurn + "'s Turn", style);
 
 		//player 1
 		GUI.Label(new Rect (100, (Screen.height - Screen.height/2) + 100, 100,100), "Player 1: " + 

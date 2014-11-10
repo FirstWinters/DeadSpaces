@@ -8,6 +8,7 @@ public class spaceDamageRand : MonoBehaviour {
 	public enum enemy {none, pack, slasher, stalker, regenerator, twitcher, bench, health};
 	public enemy myEnemy;
 	bool on = false;
+	public int currentPlayersOn = 0;
 
 	public playerScript myPlayerScripty;
 

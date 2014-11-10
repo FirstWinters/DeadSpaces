@@ -4,9 +4,13 @@ using System.Collections;
 public class DiceRoll : MonoBehaviour {
 
 	private bool trigged = false;
+	public GameObject GUIObj;
+	GuiScript GameManager;
+
 
 	// Use this for initialization
 	void Start () {
+		GameManager = GUIObj.GetComponent<GuiScript>();
 		transform.eulerAngles = new Vector3(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f));
 	}
 
@@ -27,15 +31,18 @@ public class DiceRoll : MonoBehaviour {
 	}
 
 	void OnGUI(){
-		if(GUI.Button(new Rect(200,10,100,50), "Roll")){
-			gameObject.rigidbody.useGravity = true;
-		}
-		if(GUI.Button(new Rect(200,50,100,50), "Re-Roll")){
-			gameObject.transform.localPosition = new Vector3(2.806149f,-1.866022f,6.140697f);
-			trigged = false;
-			gameObject.rigidbody.useGravity=false;
-			Start();
-			FixedUpdate();
+		if(GameManager.showGame)
+		{
+			if(GUI.Button(new Rect(400,550,100,50), "Roll")){
+				gameObject.rigidbody.useGravity = true;
+			}
+			if(GUI.Button(new Rect(400,600,100,50), "Re-Roll")){
+				gameObject.transform.localPosition = new Vector3(2.806149f,-1.866022f,6.140697f);
+				trigged = false;
+				gameObject.rigidbody.useGravity=false;
+				Start();
+				FixedUpdate();
+			}
 		}
 	}
 }

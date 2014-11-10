@@ -10,9 +10,17 @@ public class playerScript : MonoBehaviour {
 	public enum charClass2 {civ, eng, sci, sol}
 	public charClass2 myCharacter;
 
+	public GameObject GUIObj;
+	GuiScript GameManager;
+
 	//enum jobs {
 
 	public bool placed = false;
+
+	void Start()
+	{
+		GameManager = GUIObj.GetComponent<GuiScript>();
+	}
 
 	void OnTriggerEnter(Collider c)
 	{
@@ -41,16 +49,54 @@ public class playerScript : MonoBehaviour {
 						health -= (c.GetComponent<spaceDamageRand>().GetDamage() - armor);
 					}
 				}
-				this.transform.position = c.transform.position;
+				if (c.GetComponent<spaceDamageRand>().currentPlayersOn == 0)
+				{
+					this.transform.position = c.transform.position;
+					c.GetComponent<spaceDamageRand>().currentPlayersOn++;
+				}
+				else if (c.GetComponent<spaceDamageRand>().currentPlayersOn == 1)
+				{
+					this.transform.position = c.transform.position + new Vector3(0,0,.25f);
+					c.GetComponent<spaceDamageRand>().currentPlayersOn++;
+				}
+				else if (c.GetComponent<spaceDamageRand>().currentPlayersOn == 2)
+				{
+					this.transform.position = c.transform.position + new Vector3(0,0,-.25f);
+					c.GetComponent<spaceDamageRand>().currentPlayersOn++;
+				}
+				else if (c.GetComponent<spaceDamageRand>().currentPlayersOn == 3)
+				{
+					this.transform.position = c.transform.position + new Vector3(0,0,-.5f);
+					c.GetComponent<spaceDamageRand>().currentPlayersOn++;
+				}
+				SwitchTurn();
 			}
 			if (health <= 0)
 			{
 				health = 0;
 				print ("Player " + playerNumber + " has been murdered by zombies.");
+				SwitchTurn ();
 				Destroy(this.gameObject);
 			}
 
 		}
 
+	}
+	void SwitchTurn()
+	{
+		if(GameManager.whoseTurn == 4)
+		{
+			GameManager.whoseTurn = 1;
+		}
+		else
+		{
+			GameManager.whoseTurn++;
+		}
+	}
+	void OnTriggerExit(Collider c)
+	{
+		if (c.tag == "Square"){
+			c.GetComponent<spaceDamageRand>().currentPlayersOn--;
+		}
 	}
 }

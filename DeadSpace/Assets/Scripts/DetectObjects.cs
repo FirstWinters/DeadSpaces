@@ -11,6 +11,17 @@ public class DetectObjects : MonoBehaviour {
 
 	GameObject heldObject;
 
+	GuiScript myGUIScript;
+
+	void Start()
+	{
+		myGUIScript = GetComponent<GuiScript>();
+	}
+
+	void Update()
+	{
+		//this.transform.LookAt(myGUIScript.myPlayers[myGUIScript.currentPlayer].transform);
+	}
 	// Update is called once per frame
 	void LateUpdate () 
 	{
@@ -20,7 +31,7 @@ public class DetectObjects : MonoBehaviour {
 		if (Physics.Raycast (myRay, out hit, 200.0f))
 		{
 
-			if (hit.transform.tag == "Player")
+			if (hit.transform.tag == "Player" && hit.transform.GetComponent<playerScript>().playerNumber == myGUIScript.whoseTurn)
 			{
 				if(Input.GetKeyDown(KeyCode.Mouse0) && !held)
 				{
