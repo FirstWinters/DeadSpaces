@@ -12,6 +12,8 @@ public class spaceDamageRand : MonoBehaviour {
 
 	public playerScript myPlayerScripty;
 
+	public Material[] monsterMats;
+
 
 	// Use this for initialization
 	void Start () {
@@ -61,25 +63,25 @@ public class spaceDamageRand : MonoBehaviour {
 	}
 	void Update(){
 		if (myEnemy == enemy.pack) {
-			renderer.material.color = Color.black;
+			renderer.material = monsterMats[0];
 		}
 		if (myEnemy == enemy.slasher) {
-			renderer.material.color = Color.blue;
+			renderer.material = monsterMats[1];
 		}
 		if (myEnemy == enemy.stalker) {
-			renderer.material.color = Color.cyan;
+			renderer.material = monsterMats[2];
 		}
 		if (myEnemy == enemy.regenerator) {
-			renderer.material.color = Color.green;
+			renderer.material = monsterMats[3];
 		}
 		if (myEnemy == enemy.twitcher) {
-			renderer.material.color = Color.magenta;
+			renderer.material = monsterMats[4];
 		}
 		if (myEnemy == enemy.bench) {
-			renderer.material.color = Color.red;
+			renderer.material = monsterMats[5];
 		}
 		if (myEnemy == enemy.health) {
-			renderer.material.color = Color.yellow;
+			renderer.material = monsterMats[6];
 		}
 	}
 

@@ -228,19 +228,19 @@ public class GuiScript: MonoBehaviour {
 		GUI.Label(new Rect(10, 10, 100, 50), "It's Player " + whoseTurn + "'s Turn", style);
 
 		//player 1
-		GUI.Label(new Rect (100, (Screen.height - Screen.height/2) + 100, 100,100), "Player 1: " + 
+			GUI.Label(new Rect (Screen.width/6, (Screen.height - Screen.height/2) + 200, 100,100), "Player 1: " + 
 		          myPlayersScripts[0].health + " health, " + 
 		          myPlayersScripts[0].armor + " armor", style);
 		//player 2
-		GUI.Label(new Rect (100, (Screen.height - Screen.height/2) + 150, 100,100), "Player 2: " + 
+			GUI.Label(new Rect (Screen.width/6, (Screen.height - Screen.height/2) + 250, 100,100), "Player 2: " + 
 		          myPlayersScripts[1].health + " health, " + 
 		          myPlayersScripts[1].armor + " armor", style);
 		//player 3
-		GUI.Label(new Rect (100, (Screen.height - Screen.height/2) + 200, 100,100), "Player 3: " + 
+			GUI.Label(new Rect (Screen.width/6, (Screen.height - Screen.height/2) + 300, 100,100), "Player 3: " + 
 		          myPlayersScripts[2].health + " health, " + 
 		          myPlayersScripts[2].armor + " armor", style);
 		//player 4
-		GUI.Label(new Rect (100, (Screen.height - Screen.height/2) + 250, 100,100), "Player 4: " + 
+			GUI.Label(new Rect (Screen.width/6, (Screen.height - Screen.height/2) + 350, 100,100), "Player 4: " + 
 		          myPlayersScripts[3].health + " health, " + 
 		          myPlayersScripts[3].armor + " armor", style);
 		}

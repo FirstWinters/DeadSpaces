@@ -13,6 +13,8 @@ public class playerScript : MonoBehaviour {
 	public GameObject GUIObj;
 	GuiScript GameManager;
 
+	public GameObject HealthBar;
+
 	//enum jobs {
 
 	public bool placed = false;
@@ -20,6 +22,19 @@ public class playerScript : MonoBehaviour {
 	void Start()
 	{
 		GameManager = GUIObj.GetComponent<GuiScript>();
+	}
+
+	void Update()
+	{
+		SetHealthBar ();
+	}
+
+	void SetHealthBar()
+	{
+		float barheight = health/150f;
+		HealthBar.transform.localScale = new Vector3(HealthBar.transform.localScale.x, HealthBar.transform.localScale.y, barheight);
+		float barmissing = ((1-barheight)/2);
+		HealthBar.gameObject.transform.localPosition = new Vector3(0, 0, 0 - (barmissing));
 	}
 
 	void OnTriggerEnter(Collider c)
