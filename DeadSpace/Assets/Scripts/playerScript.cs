@@ -47,10 +47,12 @@ public class playerScript : MonoBehaviour {
 			{
 				if (c.GetComponent<spaceDamageRand>().myEnemy == spaceDamageRand.enemy.bench)
 				{
+					GameManager.ReRollActive = true;
 					armor += c.GetComponent<spaceDamageRand>().GetArmor();
 				}
 				else
 				{
+					GameManager.ReRollActive = true;
 					//if the damage is negative, deal it
 					if ((c.GetComponent<spaceDamageRand>().GetDamage() - armor) > 0)
 					{
@@ -84,29 +86,18 @@ public class playerScript : MonoBehaviour {
 					this.transform.position = c.transform.position + new Vector3(0,0,-.5f);
 					c.GetComponent<spaceDamageRand>().currentPlayersOn++;
 				}
-				SwitchTurn();
+				GameManager.SwitchTurn();
 			}
 			if (health <= 0)
 			{
 				health = 0;
 				print ("Player " + playerNumber + " has been murdered by zombies.");
-				SwitchTurn ();
+				GameManager.SwitchTurn ();
 				Destroy(this.gameObject);
 			}
 
 		}
 
-	}
-	void SwitchTurn()
-	{
-		if(GameManager.whoseTurn == 4)
-		{
-			GameManager.whoseTurn = 1;
-		}
-		else
-		{
-			GameManager.whoseTurn++;
-		}
 	}
 	void OnTriggerExit(Collider c)
 	{

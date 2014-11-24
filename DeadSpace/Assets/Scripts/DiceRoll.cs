@@ -33,15 +33,24 @@ public class DiceRoll : MonoBehaviour {
 	void OnGUI(){
 		if(GameManager.showGame)
 		{
-			if(GUI.Button(new Rect(Screen.width/2,Screen.height/2 + Screen.height/4,100,50), "Roll")){
-				gameObject.rigidbody.useGravity = true;
+			if(GameManager.RollActive == true)
+			{
+				if(GUI.Button(new Rect(Screen.width/2,Screen.height/2 + Screen.height/4,100,50), "Roll")){
+					gameObject.rigidbody.useGravity = true;
+					GameManager.RollActive = false;
+				}
 			}
-			if(GUI.Button(new Rect(Screen.width/2,Screen.height/2 + Screen.height/4 + Screen.height/8,100,50), "Re-Roll")){
-				gameObject.transform.localPosition = new Vector3(2.806149f,-1.866022f,6.140697f);
-				trigged = false;
-				gameObject.rigidbody.useGravity=false;
-				Start();
-				FixedUpdate();
+			if(GameManager.ReRollActive == true)
+			{
+				if(GUI.Button(new Rect(Screen.width/2,Screen.height/2 + Screen.height/4 + Screen.height/8,100,50), "Re-Roll")){
+					gameObject.transform.localPosition = new Vector3(2.806149f,-1.866022f,6.140697f);
+					trigged = false;
+					gameObject.rigidbody.useGravity=false;
+					Start();
+					FixedUpdate();
+					GameManager.RollActive = true;
+					GameManager.ReRollActive = false;
+				}
 			}
 		}
 	}

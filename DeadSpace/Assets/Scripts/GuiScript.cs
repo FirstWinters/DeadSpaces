@@ -3,6 +3,7 @@ using System.Collections;
 
 public class GuiScript: MonoBehaviour {
 
+	//Set in SideTrigger
 	public int currentValue;
 	public GUIStyle style;
 
@@ -12,8 +13,10 @@ public class GuiScript: MonoBehaviour {
 	public GameObject[] myPlayers;
 	public playerScript[] myPlayersScripts;
 
-	public GameObject myScreen;
+	public GameObject myBlock;
 
+	public bool RollActive;
+	public bool ReRollActive;
 
 	public enum charClass {civ, eng, sci, sol}
 	charClass myCharacter = new charClass();
@@ -213,7 +216,7 @@ public class GuiScript: MonoBehaviour {
 			{
 				showStart = false;
 				showGame = true;
-				myScreen.SetActive(false);
+				myBlock.SetActive(false);
 
 				//apply char classes
 				setChoices (p1, 0);
@@ -224,25 +227,32 @@ public class GuiScript: MonoBehaviour {
 		}
 		if (showGame)
 		{
-		GUI.Label(new Rect(400, 500, 100, 50), "Dice Roll: " + currentValue, style);
-		GUI.Label(new Rect(10, 10, 100, 50), "It's Player " + whoseTurn + "'s Turn", style);
+			//Dice Roll text
+			GUI.Label(new Rect(Screen.width/2, Screen.height/2 + Screen.height/3, 100, 50), "Dice Roll: " + currentValue, style);
+			//Telling who's turn it is text
+			GUI.Label(new Rect(Screen.width/2,Screen.height/2 + Screen.height/5,100,50), "It's Player " + whoseTurn + "'s Turn", style);
+			//End Turn button
+			if(GUI.Button(new Rect(Screen.width/2 + Screen.width/8 ,Screen.height/2 + Screen.height/4,100,150), "SKIP TURN"))
+			{
+				SwitchTurn();
+			}
 
 		//player 1
-			GUI.Label(new Rect (Screen.width/6, (Screen.height - Screen.height/2) + 200, 100,100), "Player 1: " + 
+			GUI.Label(new Rect (Screen.width/6, (Screen.height - Screen.height/3) + Screen.height/16, 100,100), "Player 1: " + 
 		          myPlayersScripts[0].health + " health, " + 
-		          myPlayersScripts[0].armor + " armor", style);
+		          myPlayersScripts[0].armor + " armor, " + p1.ToString(), style);
 		//player 2
-			GUI.Label(new Rect (Screen.width/6, (Screen.height - Screen.height/2) + 250, 100,100), "Player 2: " + 
+			GUI.Label(new Rect (Screen.width/6, (Screen.height - Screen.height/3) + Screen.height/8, 100,100), "Player 2: " + 
 		          myPlayersScripts[1].health + " health, " + 
-		          myPlayersScripts[1].armor + " armor", style);
+		          myPlayersScripts[1].armor + " armor, " + p2.ToString (), style);
 		//player 3
-			GUI.Label(new Rect (Screen.width/6, (Screen.height - Screen.height/2) + 300, 100,100), "Player 3: " + 
+			GUI.Label(new Rect (Screen.width/6, (Screen.height - Screen.height/3) + Screen.height/8 + Screen.height/16, 100,100), "Player 3: " + 
 		          myPlayersScripts[2].health + " health, " + 
-		          myPlayersScripts[2].armor + " armor", style);
+			      myPlayersScripts[2].armor + " armor, " + p3.ToString(), style);
 		//player 4
-			GUI.Label(new Rect (Screen.width/6, (Screen.height - Screen.height/2) + 350, 100,100), "Player 4: " + 
+			GUI.Label(new Rect (Screen.width/6, (Screen.height - Screen.height/3) + Screen.height/4, 100,100), "Player 4: " + 
 		          myPlayersScripts[3].health + " health, " + 
-		          myPlayersScripts[3].armor + " armor", style);
+			      myPlayersScripts[3].armor + " armor, " + p4.ToString(), style);
 		}
 	}
 
@@ -263,6 +273,17 @@ public class GuiScript: MonoBehaviour {
 		if (c == charClass.sol)
 		{
 			myPlayersScripts[player].myCharacter = playerScript.charClass2.sol;
+		}
+	}
+	public void SwitchTurn()
+	{
+		if(whoseTurn == 4)
+		{
+			whoseTurn = 1;
+		}
+		else
+		{
+			whoseTurn++;
 		}
 	}
 }

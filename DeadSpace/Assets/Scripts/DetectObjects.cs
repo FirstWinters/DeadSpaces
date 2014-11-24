@@ -11,6 +11,9 @@ public class DetectObjects : MonoBehaviour {
 
 	GameObject heldObject;
 
+	Vector3 startPosition;
+	Vector3 endPosition;
+
 	GuiScript myGUIScript;
 
 	void Start()
@@ -35,10 +38,13 @@ public class DetectObjects : MonoBehaviour {
 			{
 				if(Input.GetKeyDown(KeyCode.Mouse0) && !held)
 				{
+					startPosition = hit.transform.position;
 					held = true;
 					heldObject = hit.transform.gameObject;
+					endPosition = startPosition + new Vector3( myGUIScript.currentValue , 0, 0 );
+
 				}
-				else if(Input.GetKeyUp(KeyCode.Mouse0) && held)
+				else if(Input.GetKeyUp(KeyCode.Mouse0) && held && hit.transform.position.x < (endPosition.x +.5) && hit.transform.position.x > (endPosition.x -.5))
 				{
 					held = false;
 				}
