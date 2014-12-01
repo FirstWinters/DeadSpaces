@@ -7,6 +7,7 @@ public class DiceRoll : MonoBehaviour {
 	public GameObject GUIObj;
 	GuiScript GameManager;
 
+	public AudioSource DiceSound;
 
 	// Use this for initialization
 	void Start () {
@@ -36,6 +37,7 @@ public class DiceRoll : MonoBehaviour {
 			if(GameManager.RollActive == true)
 			{
 				if(GUI.Button(new Rect(Screen.width/2,Screen.height/2 + Screen.height/4,100,50), "Roll")){
+					DiceSound.Play();
 					gameObject.rigidbody.useGravity = true;
 					GameManager.RollActive = false;
 				}

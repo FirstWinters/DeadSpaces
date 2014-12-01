@@ -6,6 +6,8 @@ public class GuiScript: MonoBehaviour {
 	//Set in SideTrigger
 	public int currentValue;
 	public GUIStyle style;
+	public GUIStyle infoStyle;
+	public GUIStyle enemyStyle;
 
 	public int currentPlayer = 0;
 	public int whoseTurn = 1;
@@ -17,6 +19,8 @@ public class GuiScript: MonoBehaviour {
 
 	public bool RollActive;
 	public bool ReRollActive;
+
+	public Font deadFont;
 
 	public enum charClass {civ, eng, sci, sol}
 	charClass myCharacter = new charClass();
@@ -30,6 +34,15 @@ public class GuiScript: MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		infoStyle.fontSize = 20;
+		infoStyle.normal.textColor = Color.white;
+		infoStyle.alignment = TextAnchor.MiddleCenter;
+		infoStyle.font = deadFont;
+
+		enemyStyle.normal.textColor = Color.white;
+		enemyStyle.font = deadFont;
+
 		myPlayersScripts = new playerScript[myPlayers.Length];
 
 		for (int i = 0; i < myPlayers.Length; i++)
@@ -42,6 +55,10 @@ public class GuiScript: MonoBehaviour {
 
 	void Update()
 	{
+		if(Input.GetKeyDown(KeyCode.Escape))
+		{
+			Application.Quit();
+		}
 		foreach (playerScript p in myPlayersScripts)
 		{
 			if(p.placed == false)
@@ -54,6 +71,8 @@ public class GuiScript: MonoBehaviour {
 	// Update is called once per frame
 	void OnGUI () {
 
+
+
 		//modular design
 		/*
 		GUI.Label(new Rect (10, Screen.height - Screen.height/8, 100,100), "Player " + 
@@ -63,46 +82,52 @@ public class GuiScript: MonoBehaviour {
 		          */
 		if (showStart)
 		{
-			GUI.Label (new Rect (10, 10, 100, 50), "Choose your character!");
-			if (GUI.Button (new Rect (10, 100, 100, 50), "Civilian")) {
+			GUI.Label (new Rect (450, 10, 100, 50), "Choose your character!", infoStyle);
+			if (GUI.Button (new Rect (100, 125, 100, 50), "Civilian")) {
 				myCharacter = charClass.civ;
 			}
-			
+
+			GUI.Box(new Rect(150,100,1000,325),"");
+
 			if (myCharacter == charClass.civ) {
-				GUI.Box(new Rect(150,100,450,300),"Civilian Info");
+
+				GUI.Label(new Rect(500,100,150,150),"Civilian: \nCivilians take 5 points less damage to slashers.",infoStyle);
 				//if (GUI.Button (new Rect (500, 100, 150, 50), "Choose Civilian")) {
 				//do choose Civilian
 				//}
 			}
 			
-			if (GUI.Button (new Rect (10, 150, 100, 50), "Engineer")) {
+			if (GUI.Button (new Rect (100, 200, 100, 50), "Engineer")) {
 				myCharacter = charClass.eng;
 			}
 			
 			if (myCharacter == charClass.eng) {
-				GUI.Box(new Rect(150,100,450,300),"Engineer Info");
+
+				GUI.Label(new Rect(500,100,150,150),"Engineer: \nEngineers take 25 points less damage to twitchers.",infoStyle);
 				//if (GUI.Button (new Rect (500, 200, 150, 50), "Choose Engineer")) {
 				//do choose Engineer
 				//}
 			}
 			
-			if (GUI.Button (new Rect (10, 200, 100, 50), "Scientist")) {
+			if (GUI.Button (new Rect (100, 275, 100, 50), "Scientist")) {
 				myCharacter = charClass.sci;
 			}
 			
 			if (myCharacter == charClass.sci) {
-				GUI.Box(new Rect(150,100,450,300),"Scientist Info");
+
+				GUI.Label(new Rect(500,100,150,150),"Scientist: \nScientists take 5 points less damage to stalkers.",infoStyle);
 				//if (GUI.Button (new Rect (500, 300, 150, 50), "Choose Scientist")) {
 				//do choose Scientist
 				//}
 			}
 			
-			if (GUI.Button (new Rect (10, 250, 100, 50), "Soldier")) {
+			if (GUI.Button (new Rect (100, 350, 100, 50), "Soldier")) {
 				myCharacter = charClass.sol;
 			}
 			
 			if (myCharacter == charClass.sol) {
-				GUI.Box(new Rect(150,100,450,300),"Soldier Info");
+
+				GUI.Label(new Rect(500,100,150,150),"Soldier: \nSoldiers take 10 points less damage to generators.",infoStyle);
 				//if (GUI.Button (new Rect (500, 400, 150, 50), "Choose Soldier")) {
 				//do choose Soldier
 				//}
@@ -212,12 +237,12 @@ public class GuiScript: MonoBehaviour {
 			if(p4 == charClass.sol){
 				GUI.Label(new Rect (485,675,100,50), "Player 4: Soldier");
 			}
-			if (GUI.Button(new Rect(600, 500, 100, 100), "Start"))
+			if (GUI.Button(new Rect(700, 500, 250, 100), "Start"))
 			{
 				showStart = false;
 				showGame = true;
 				myBlock.SetActive(false);
-
+				
 				//apply char classes
 				setChoices (p1, 0);
 				setChoices (p2, 1);
@@ -227,6 +252,9 @@ public class GuiScript: MonoBehaviour {
 		}
 		if (showGame)
 		{
+			GUI.Box(new Rect(10,500,500,250),"");
+			GUI.Label(new Rect(12,501,150,250),"Enemy Damage Guide:\nTwitchers: 75pts.\nRegenterators: 25pts.\nStalkers: 20pts.\nSlashers: 15pts.\nPack: 5pts.\nBench: +5 armor.\nHealth: +35 HP.", enemyStyle);
+
 			//Dice Roll text
 			GUI.Label(new Rect(Screen.width/2, Screen.height/2 + Screen.height/3, 100, 50), "Dice Roll: " + currentValue, style);
 			//Telling who's turn it is text
@@ -238,19 +266,19 @@ public class GuiScript: MonoBehaviour {
 			}
 
 		//player 1
-			GUI.Label(new Rect (Screen.width/6, (Screen.height - Screen.height/3) + Screen.height/16, 100,100), "Player 1: " + 
+			GUI.Label(new Rect (200, (Screen.height - Screen.height/3) + Screen.height/16, 100,100), "Player 1: " + 
 		          myPlayersScripts[0].health + " health, " + 
 		          myPlayersScripts[0].armor + " armor, " + p1.ToString(), style);
 		//player 2
-			GUI.Label(new Rect (Screen.width/6, (Screen.height - Screen.height/3) + Screen.height/8, 100,100), "Player 2: " + 
+			GUI.Label(new Rect (200, (Screen.height - Screen.height/3) + Screen.height/8, 100,100), "Player 2: " + 
 		          myPlayersScripts[1].health + " health, " + 
 		          myPlayersScripts[1].armor + " armor, " + p2.ToString (), style);
 		//player 3
-			GUI.Label(new Rect (Screen.width/6, (Screen.height - Screen.height/3) + Screen.height/8 + Screen.height/16, 100,100), "Player 3: " + 
+			GUI.Label(new Rect (200, (Screen.height - Screen.height/3) + Screen.height/8 + Screen.height/16, 100,100), "Player 3: " + 
 		          myPlayersScripts[2].health + " health, " + 
 			      myPlayersScripts[2].armor + " armor, " + p3.ToString(), style);
 		//player 4
-			GUI.Label(new Rect (Screen.width/6, (Screen.height - Screen.height/3) + Screen.height/4, 100,100), "Player 4: " + 
+			GUI.Label(new Rect (200, (Screen.height - Screen.height/3) + Screen.height/4, 100,100), "Player 4: " + 
 		          myPlayersScripts[3].health + " health, " + 
 			      myPlayersScripts[3].armor + " armor, " + p4.ToString(), style);
 		}

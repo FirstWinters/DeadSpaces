@@ -15,6 +15,8 @@ public class playerScript : MonoBehaviour {
 
 	public GameObject HealthBar;
 
+	public AudioSource death;
+
 	//enum jobs {
 
 	public bool placed = false;
@@ -91,6 +93,7 @@ public class playerScript : MonoBehaviour {
 			if (health <= 0)
 			{
 				health = 0;
+				death.Play();
 				print ("Player " + playerNumber + " has been murdered by zombies.");
 				GameManager.SwitchTurn ();
 				Destroy(this.gameObject);

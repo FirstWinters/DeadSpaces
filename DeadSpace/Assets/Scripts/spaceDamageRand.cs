@@ -14,6 +14,13 @@ public class spaceDamageRand : MonoBehaviour {
 
 	public Material[] monsterMats;
 
+	public AudioSource twitcher;
+	public AudioSource regen;
+	public AudioSource stalker;
+	public AudioSource slasher;
+	public AudioSource pack;
+	public AudioSource bench;
+	public AudioSource health;
 
 	// Use this for initialization
 	void Start () {
@@ -88,7 +95,7 @@ public class spaceDamageRand : MonoBehaviour {
 	public int GetDamage()
 	{
 		if (rand >= 1 && rand <= 5) {
-
+			twitcher.Play();
 			myEnemy = enemy.twitcher;
 			//damage
 			if (myPlayerScripty.myCharacter == playerScript.charClass2.eng)
@@ -101,6 +108,7 @@ public class spaceDamageRand : MonoBehaviour {
 			
 		}
 		if (rand >= 6 && rand <= 20) {
+			regen.Play();
 			//player space Pack
 			myEnemy = enemy.regenerator;
 			if (myPlayerScripty.myCharacter == playerScript.charClass2.sol)
@@ -112,6 +120,7 @@ public class spaceDamageRand : MonoBehaviour {
 			}
 		}
 		if (rand >= 21 && rand <= 35) {
+			stalker.Play();
 			//player space Pack
 			myEnemy = enemy.stalker;
 			//damage
@@ -124,6 +133,7 @@ public class spaceDamageRand : MonoBehaviour {
 			}
 		}
 		if (rand >= 36 && rand <= 55) {
+			slasher.Play();
 			//player space Pack
 			myEnemy = enemy.slasher;
 			if (myPlayerScripty.myCharacter == playerScript.charClass2.civ)
@@ -135,18 +145,21 @@ public class spaceDamageRand : MonoBehaviour {
 			}
 		}
 		if (rand >= 56 && rand <= 80) {
+			pack.Play();
 			//player space Pack
 			myEnemy = enemy.pack;
 			//damage
 			return 10;
 		}
 		if (rand >= 81 && rand <= 90) {
+			bench.Play();
 			//player space Pack
 			myEnemy = enemy.bench;
 			//armor+=5;
 			return 0;
 		}
 		if (rand >= 91 && rand <= 100) {
+			health.Play();
 			//player space Pack
 			myEnemy = enemy.health;
 			//playerHealth+=35;
@@ -159,6 +172,7 @@ public class spaceDamageRand : MonoBehaviour {
 	public int GetArmor()
 	{
 		if (rand >= 81 && rand <= 90) {
+			bench.Play();
 			//player space Pack
 			myEnemy = enemy.bench;
 			//armor+=5;
